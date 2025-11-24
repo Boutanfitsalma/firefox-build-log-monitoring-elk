@@ -1,0 +1,14 @@
+strict.perms: false
+
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /logs/**/*.txt
+    fields:
+      log_type: firefox_build
+    fields_under_root: true
+
+output.logstash:
+  hosts: ["logstash:5044"]
+  ssl.enabled: false

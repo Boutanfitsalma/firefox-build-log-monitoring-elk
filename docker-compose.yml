@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+  elasticsearch:
+    # --- MODIFICATION ICI ---
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2 
+    # ------------------------
+    container_name: elasticsearch
+    restart: always
+    environment:
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      discovery.type: single-node
+    volumes:
+      - elastic_data:/usr/share/elasticsearch/data/
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    networks: [elk]
+  logstash:
+    image: logstash:7.16.2
+    container_name: logstash
+    restart: always
+    volumes:
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+    depends_on: [elasticsearch]
+    ports:
+      - '5044:5044'   # pour Filebeat
+      - '9600:9600'   # API Logstash
+    environment:
+      LS_JAVA_OPTS: "-Xms256m -Xmx256m"
+    networks: [elk]
+
+
+
+  kibana:
+    image: kibana:7.16.2
+    container_name: kibana
+    restart: always
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on: [elasticsearch]
+    ports:
+      - '5601:5601'
+    networks: [elk]
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.16.2
+    container_name: filebeat
+    user: root
+    restart: always
+    depends_on: [logstash]
+    volumes:
+    - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+    - "C:/Users/bouta/elastic/logs:/logs:ro"
+    networks: [elk]
+    # Ajoute cette ligne pour forcer l’option même si le YAML n’est pas pris en compte:
+    command: ["-e", "-strict.perms=false"]
+
+volumes:
+  elastic_data: {}
+
+networks:
+  elk: {}
+
