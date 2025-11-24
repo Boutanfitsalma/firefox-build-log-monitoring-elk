@@ -22,7 +22,7 @@ Ce projet implémente une solution complète de **monitoring en temps réel** de
 ---
 
 ## 🏗️ Architecture
-<img width="1088" height="747" alt="image" src="https://github.com/user-attachments/assets/8cc08a66-14a8-4751-99c7-3f29f33e45b2" />
+<img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/8cc08a66-14a8-4751-99c7-3f29f33e45b2" />
 
 ## 📊 Fonctionnalités Principales
 
