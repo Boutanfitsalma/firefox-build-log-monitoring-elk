@@ -22,36 +22,7 @@ Ce projet implémente une solution complète de **monitoring en temps réel** de
 ---
 
 ## 🏗️ Architecture
-
-```
-┌─────────────┐      ┌──────────┐      ┌────────────────┐      ┌────────┐
-│ Firefox     │──────▶│ Filebeat │──────▶│   Logstash     │──────▶│Elastic-│
-│ Build Logs  │      │          │      │ (Parsing +     │      │ search │
-│ (.txt)      │      └──────────┘      │  Enrichment)   │      │        │
-└─────────────┘                        └────────────────┘      └────┬───┘
-                                                                      │
-                                        ┌─────────────────────────────┘
-                                        │
-                                        ▼
-                                  ┌──────────┐
-                                  │  Kibana  │
-                                  │ Dashboard│◀─── Utilisateur
-                                  │    +     │
-                                  │ ML Jobs  │
-                                  └──────────┘
-```
-
-### Composants
-
-| Composant | Version | Rôle |
-|-----------|---------|------|
-| **Elasticsearch** | 7.16.2 | Moteur d'indexation et de recherche |
-| **Logstash** | 7.16.2 | Parsing et transformation des logs |
-| **Kibana** | 7.16.2 | Visualisation et analyse interactive |
-| **Filebeat** | 7.16.2 | Collecte légère des fichiers logs |
-| **Elastic ML** | 7.16.2 | Détection d'anomalies non supervisée |
-
----
+<img width="1088" height="747" alt="image" src="https://github.com/user-attachments/assets/8cc08a66-14a8-4751-99c7-3f29f33e45b2" />
 
 ## 📊 Fonctionnalités Principales
 
